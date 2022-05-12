@@ -4,7 +4,7 @@
 # Creates commits from start_date to end_date with random intervals
 
 # Hardcoded date range
-START_DATE="2015-10-12"
+START_DATE="2022-05-12"
 END_DATE="2025-10-12"
 
 # Validate date format
