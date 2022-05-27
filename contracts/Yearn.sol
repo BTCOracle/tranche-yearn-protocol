@@ -15,3 +15,11 @@ import "./interfaces/IJTrancheTokens.sol";
 import "./interfaces/IJTranchesDeployer.sol";
 import "./JYearnStorage.sol";
 import "./interfaces/IJYearn.sol";
+import "./interfaces/IWETHGateway.sol";
+import "./interfaces/IIncentivesController.sol";
+import "./interfaces/IYToken.sol";
+import "./interfaces/IYearnRewards.sol";
+
+
+contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage, IJYearn {
+    using SafeMathUpgradeable for uint256;
