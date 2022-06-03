@@ -23,3 +23,5 @@ import "./interfaces/IYearnRewards.sol";
 
 contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage, IJYearn {
     using SafeMathUpgradeable for uint256;
+
+    /**
