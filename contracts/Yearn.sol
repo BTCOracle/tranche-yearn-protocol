@@ -25,3 +25,9 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     using SafeMathUpgradeable for uint256;
 
     /**
+     * @dev contract initializer
+     * @param _adminTools price oracle address
+     * @param _feesCollector fees collector contract address
+     * @param _tranchesDepl tranches deployer contract address
+     */
+    function initialize(address _adminTools, 
