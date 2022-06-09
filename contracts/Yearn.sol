@@ -31,3 +31,13 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @param _tranchesDepl tranches deployer contract address
      */
     function initialize(address _adminTools, 
+            address _feesCollector, 
+            address _tranchesDepl) external initializer() {
+        OwnableUpgradeable.__Ownable_init();
+        adminToolsAddress = _adminTools;
+        feesCollectorAddress = _feesCollector;
+        tranchesDeployerAddress = _tranchesDepl;
+        redeemTimeout = 3; //default
+    }
+
+    /**
