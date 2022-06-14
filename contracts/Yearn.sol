@@ -41,3 +41,6 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     }
 
     /**
+     * @dev admins modifiers
+     */
+    modifier onlyAdmins() {
