@@ -44,3 +44,10 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @dev admins modifiers
      */
     modifier onlyAdmins() {
+        require(IJAdminTools(adminToolsAddress).isAdmin(msg.sender), "JYearn: not an Admin");
+        _;
+    }
+
+    fallback() external payable {
+        revert('Fallback not allowed');
+    }
