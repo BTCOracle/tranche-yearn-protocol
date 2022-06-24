@@ -51,3 +51,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     fallback() external payable {
         revert('Fallback not allowed');
     }
+    receive() external payable {
+        revert('Receive not allowed');
+    }
+
+    /**
+     * @dev set new addresses for price oracle, fees collector and tranche deployer 
+     * @param _adminTools price oracle address
+     * @param _feesCollector fees collector contract address
+     * @param _tranchesDepl tranches deployer contract address
