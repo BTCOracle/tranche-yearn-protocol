@@ -60,3 +60,6 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @param _adminTools price oracle address
      * @param _feesCollector fees collector contract address
      * @param _tranchesDepl tranches deployer contract address
+     */
+    function setNewEnvironment(address _adminTools, 
+            address _feesCollector, 
