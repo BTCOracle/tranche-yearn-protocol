@@ -63,3 +63,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      */
     function setNewEnvironment(address _adminTools, 
             address _feesCollector, 
+            address _tranchesDepl) external onlyOwner{
+        require((_adminTools != address(0)) && (_feesCollector != address(0)) && (_tranchesDepl != address(0)), "JYearn: check addresses");
+        adminToolsAddress = _adminTools;
+        feesCollectorAddress = _feesCollector;
+        tranchesDeployerAddress = _tranchesDepl;
