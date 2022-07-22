@@ -68,3 +68,13 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         adminToolsAddress = _adminTools;
         feesCollectorAddress = _feesCollector;
         tranchesDeployerAddress = _tranchesDepl;
+    }
+
+    /**
+     * @dev set incentive rewards address
+     * @param _incentivesController incentives controller contract address
+     */
+    function setincentivesControllerAddress(address _incentivesController) external onlyAdmins {
+        incentivesControllerAddress = _incentivesController;
+    }
+
