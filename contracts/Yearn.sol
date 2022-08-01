@@ -78,3 +78,18 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         incentivesControllerAddress = _incentivesController;
     }
 
+    /**
+     * @dev get incentive rewards address
+     */
+    function getSirControllerAddress() external view override returns (address) {
+        return incentivesControllerAddress;
+    }
+
+    /**
+     * @dev set YFI token and rewards on the specific blockchain
+     * on Ethereum blockchain:
+     * YFI_TOKEN_ADDRESS = 0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e;
+     * YFI_REWARDS_ADDRESS = 0xcc9EFea3ac5Df6AD6A656235Ef955fBfEF65B862;
+     * @param _yfiToken YFI token address
+     * @param _yfiRewards YFI rewards address
+     */
