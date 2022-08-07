@@ -93,3 +93,13 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @param _yfiToken YFI token address
      * @param _yfiRewards YFI rewards address
      */
+    function setYFIAddresses(address _yfiToken, address _yfiRewards) external onlyAdmins {
+        require(_yfiToken != address(0) && _yfiRewards != address(0), "JYearn: not valid YFI addresses");
+        yfiTokenAddress = _yfiToken;
+        yfiRewardsAddress = _yfiRewards;
+    }
+
+    /**
+     * @dev set decimals on the underlying token of a tranche
+     * @param _trancheNum tranche number
+     * @param _underlyingDec underlying token decimals
