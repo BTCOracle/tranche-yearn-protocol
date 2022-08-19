@@ -107,3 +107,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     function setDecimals(uint256 _trancheNum, uint8 _underlyingDec) external onlyAdmins {
         require(_underlyingDec <= 18, "JYearn: too many decimals");
         trancheParameters[_trancheNum].underlyingDecimals = _underlyingDec;
+    }
+
+    /**
+     * @dev set tranche redemption percentage
+     * @param _trancheNum tranche number
