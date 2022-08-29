@@ -112,3 +112,7 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     /**
      * @dev set tranche redemption percentage
      * @param _trancheNum tranche number
+     * @param _redeemPercent user redemption percent
+     */
+    function setTrancheRedemptionPercentage(uint256 _trancheNum, uint16 _redeemPercent) external onlyAdmins {
+        trancheParameters[_trancheNum].redemptionPercentage = _redeemPercent;
