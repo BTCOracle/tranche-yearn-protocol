@@ -116,3 +116,9 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      */
     function setTrancheRedemptionPercentage(uint256 _trancheNum, uint16 _redeemPercent) external onlyAdmins {
         trancheParameters[_trancheNum].redemptionPercentage = _redeemPercent;
+    }
+
+    /**
+     * @dev set redemption timeout
+     * @param _blockNum timeout (in block numbers)
+     */
