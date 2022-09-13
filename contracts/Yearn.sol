@@ -122,3 +122,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @dev set redemption timeout
      * @param _blockNum timeout (in block numbers)
      */
+    function setRedemptionTimeout(uint32 _blockNum) external onlyAdmins {
+        redeemTimeout = _blockNum;
+    }
+
+    /**
+     * @dev set new token and if is a vault or not
+     * @param _trancheNum tranche number
+     * @param _yTokenAddress yToken or yVault address
+     * @param _isVault vault or token
