@@ -131,3 +131,6 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @param _trancheNum tranche number
      * @param _yTokenAddress yToken or yVault address
      * @param _isVault vault or token
+     */
+    function setNewYToken(uint256 _trancheNum, address _yTokenAddress, bool _isVault) external onlyAdmins {
+        require(_trancheNum < tranchePairsCounter, "JYearn: tranche number too high");
