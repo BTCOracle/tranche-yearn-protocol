@@ -147,3 +147,14 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      */
     function migrateYTranche(uint256 _trancheNum, address _newYTokenAddress, bool _isVault) external onlyAdmins {
         require(_trancheNum < tranchePairsCounter, "JYearn: tranche number too high");
+        require(_newYTokenAddress != address(0), "JYearn: yToken address not allowed");
+        uint256 totProtSupply = getTokenBalance(trancheAddresses[_trancheNum].yTokenAddress);
+        yearnWithdraw(_trancheNum, totProtSupply);
+        trancheAddresses[_trancheNum].yTokenAddress = _newYTokenAddress;
+        trancheAddresses[_trancheNum].isVault = _isVault;
+        uint256 totUnderBalance = getTokenBalance(trancheAddresses[_trancheNum].buyerCoinAddress);
+        IERC20Upgradeable(trancheAddresses[_trancheNum].buyerCoinAddress).approve(_newYTokenAddress, totUnderBalance);
+        IYToken(_newYTokenAddress).deposit(totUnderBalance);
+    }
+
+    /**
