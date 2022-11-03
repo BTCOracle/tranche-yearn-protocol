@@ -158,3 +158,15 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     }
 
     /**
+     * @dev set tranche redemption percentage scaled by 1e18
+     * @param _trancheNum tranche number
+     * @param _newTrAPercentage new tranche A RPB
+     */
+    function setTrancheAFixedPercentage(uint256 _trancheNum, uint256 _newTrAPercentage) external onlyAdmins {
+        trancheParameters[_trancheNum].trancheAFixedPercentage = _newTrAPercentage;
+        trancheParameters[_trancheNum].storedTrancheAPrice = setTrancheAExchangeRate(_trancheNum);
+    }
+
+    function addTrancheToProtocol(address _buyerCoinAddress, 
+            address _yTokenAddress, 
+            bool _isVault,
