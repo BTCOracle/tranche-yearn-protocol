@@ -170,3 +170,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     function addTrancheToProtocol(address _buyerCoinAddress, 
             address _yTokenAddress, 
             bool _isVault,
+            string memory _nameA, 
+            string memory _symbolA, 
+            string memory _nameB, 
+            string memory _symbolB, 
+            uint256 _fixPercentage, 
