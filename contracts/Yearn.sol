@@ -175,3 +175,10 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             string memory _nameB, 
             string memory _symbolB, 
             uint256 _fixPercentage, 
+            uint8 _underlyingDec) external onlyAdmins nonReentrant {
+        require(tranchesDeployerAddress != address(0), "JYearn: set tranche eth deployer");
+
+        trancheAddresses[tranchePairsCounter].buyerCoinAddress = _buyerCoinAddress;
+        trancheAddresses[tranchePairsCounter].yTokenAddress = _yTokenAddress;
+        trancheAddresses[tranchePairsCounter].isVault = _isVault;
+        trancheAddresses[tranchePairsCounter].ATrancheAddress = 
