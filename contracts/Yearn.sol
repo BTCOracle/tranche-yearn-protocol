@@ -182,3 +182,6 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         trancheAddresses[tranchePairsCounter].yTokenAddress = _yTokenAddress;
         trancheAddresses[tranchePairsCounter].isVault = _isVault;
         trancheAddresses[tranchePairsCounter].ATrancheAddress = 
+                IJTranchesDeployer(tranchesDeployerAddress).deployNewTrancheATokens(_nameA, _symbolA, tranchePairsCounter);
+        trancheAddresses[tranchePairsCounter].BTrancheAddress = 
+                IJTranchesDeployer(tranchesDeployerAddress).deployNewTrancheBTokens(_nameB, _symbolB, tranchePairsCounter); 
