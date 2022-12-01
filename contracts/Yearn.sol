@@ -186,3 +186,9 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         trancheAddresses[tranchePairsCounter].BTrancheAddress = 
                 IJTranchesDeployer(tranchesDeployerAddress).deployNewTrancheBTokens(_nameB, _symbolB, tranchePairsCounter); 
         
+        trancheParameters[tranchePairsCounter].underlyingDecimals = _underlyingDec;
+        trancheParameters[tranchePairsCounter].trancheAFixedPercentage = _fixPercentage;
+        trancheParameters[tranchePairsCounter].trancheALastActionTime = block.timestamp;
+
+        trancheParameters[tranchePairsCounter].storedTrancheAPrice = uint256(1e18);
+
