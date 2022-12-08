@@ -192,3 +192,5 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
         trancheParameters[tranchePairsCounter].storedTrancheAPrice = uint256(1e18);
 
+        trancheParameters[tranchePairsCounter].redemptionPercentage = 10000;  //default value 100%, no fees
+
