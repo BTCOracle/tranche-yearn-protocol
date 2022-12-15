@@ -194,3 +194,10 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
         trancheParameters[tranchePairsCounter].redemptionPercentage = 10000;  //default value 100%, no fees
 
+        calcRPSFromPercentage(tranchePairsCounter); // initialize tranche A RPB
+
+        emit TrancheAddedToProtocol(tranchePairsCounter, trancheAddresses[tranchePairsCounter].ATrancheAddress, trancheAddresses[tranchePairsCounter].BTrancheAddress);
+
+        tranchePairsCounter = tranchePairsCounter.add(1);
+    } 
+
