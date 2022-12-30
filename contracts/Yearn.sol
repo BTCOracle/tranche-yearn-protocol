@@ -201,3 +201,22 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         tranchePairsCounter = tranchePairsCounter.add(1);
     } 
 
+    /**
+     * @dev enables or disables tranche deposit (default: disabled)
+     * @param _trancheNum tranche number
+     * @param _enable true or false
+     */
+    function setTrancheDeposit(uint256 _trancheNum, bool _enable) external onlyAdmins {
+        trancheDepositEnabled[_trancheNum] = _enable;
+    }
+
+    /**
+     * @dev deposit in yearn tokens
+     * @param _trNum tranche number
+     * @param _amount amount of token to be deposited in yearn token or vault
+     */
+    function yearnDeposit(uint256 _trNum, uint256 _amount) internal {
+        address origToken = trancheAddresses[_trNum].buyerCoinAddress;
+        address yToken = trancheAddresses[_trNum].yTokenAddress;
+
+        IERC20Upgradeable(origToken).approve(yToken, _amount);
