@@ -220,3 +220,5 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         address yToken = trancheAddresses[_trNum].yTokenAddress;
 
         IERC20Upgradeable(origToken).approve(yToken, _amount);
+
+        IYToken(yToken).deposit(_amount);
