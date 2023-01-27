@@ -222,3 +222,27 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         IERC20Upgradeable(origToken).approve(yToken, _amount);
 
         IYToken(yToken).deposit(_amount);
+    }
+
+    /**
+     * @dev withdraw from yearn tokens
+     * @param _trNum tranche number
+     * @param _yAmount amount of ytokens to be redeemed from yearn token or vault
+     */
+    function yearnWithdraw(uint256 _trNum, uint256 _yAmount) internal returns (bool) {
+        address yToken = trancheAddresses[_trNum].yTokenAddress;
+
+        if (_yAmount > IYToken(yToken).balanceOf(address(this)))
+            _yAmount = IYToken(yToken).balanceOf(address(this));
+
+        IYToken(yToken).withdraw(_yAmount);
+
+        return true;
+    }
+    
+    /**
+     * @dev set Tranche A exchange rate
+     * @param _trancheNum tranche number
+     * @return tranche A token current price
+     */
+    function setTrancheAExchangeRate(uint256 _trancheNum) internal returns (uint256) {
