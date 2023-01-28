@@ -246,3 +246,6 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @return tranche A token current price
      */
     function setTrancheAExchangeRate(uint256 _trancheNum) internal returns (uint256) {
+        calcRPSFromPercentage(_trancheNum);
+        uint256 deltaTime = (block.timestamp).sub(trancheParameters[_trancheNum].trancheALastActionTime);
+        uint256 deltaPrice = (trancheParameters[_trancheNum].trancheACurrentRPS).mul(deltaTime);
