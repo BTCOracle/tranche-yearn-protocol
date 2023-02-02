@@ -249,3 +249,4 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         calcRPSFromPercentage(_trancheNum);
         uint256 deltaTime = (block.timestamp).sub(trancheParameters[_trancheNum].trancheALastActionTime);
         uint256 deltaPrice = (trancheParameters[_trancheNum].trancheACurrentRPS).mul(deltaTime);
+        trancheParameters[_trancheNum].storedTrancheAPrice = (trancheParameters[_trancheNum].storedTrancheAPrice).add(deltaPrice);
