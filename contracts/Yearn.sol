@@ -250,3 +250,18 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         uint256 deltaTime = (block.timestamp).sub(trancheParameters[_trancheNum].trancheALastActionTime);
         uint256 deltaPrice = (trancheParameters[_trancheNum].trancheACurrentRPS).mul(deltaTime);
         trancheParameters[_trancheNum].storedTrancheAPrice = (trancheParameters[_trancheNum].storedTrancheAPrice).add(deltaPrice);
+        trancheParameters[_trancheNum].trancheALastActionTime = block.timestamp;
+        return trancheParameters[_trancheNum].storedTrancheAPrice;
+    }
+
+    /**
+     * @dev get Tranche A exchange rate
+     * @param _trancheNum tranche number
+     * @return tranche A token current price
+     */
+    function getTrancheAExchangeRate(uint256 _trancheNum) public view returns (uint256) {
+        return trancheParameters[_trancheNum].storedTrancheAPrice;
+    }
+
+    /**
+     * @dev get RPB for a given percentage (expressed in 1e18)
