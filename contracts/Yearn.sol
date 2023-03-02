@@ -265,3 +265,22 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
     /**
      * @dev get RPB for a given percentage (expressed in 1e18)
+     * @param _trancheNum tranche number
+     * @return RPB for a fixed percentage
+     */
+    function getTrancheACurrentRPS(uint256 _trancheNum) external view returns (uint256) {
+        return trancheParameters[_trancheNum].trancheACurrentRPS;
+    }
+
+    /**
+     * @dev get Tranche A exchange rate per seconds (tokens with 18 decimals)
+     * @param _trancheNum tranche number
+     * @return tranche A token RPS
+     */
+    function calcRPSFromPercentage(uint256 _trancheNum) public returns (uint256) {
+        trancheParameters[_trancheNum].trancheACurrentRPB = trancheParameters[_trancheNum].storedTrancheAPrice
+                        .mul(trancheParameters[_trancheNum].trancheAFixedPercentage).div(SECONDS_PER_YEAR).div(1e18);
+        return trancheParameters[_trancheNum].trancheACurrentRPS;
+    }
+
+    /**
