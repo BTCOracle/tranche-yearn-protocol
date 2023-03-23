@@ -298,3 +298,5 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     /**
      * @dev get price for yVaults
      * @param _trancheNum tranche number
+     * @return yVault price
+     */
