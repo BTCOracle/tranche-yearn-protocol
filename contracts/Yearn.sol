@@ -300,3 +300,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @param _trancheNum tranche number
      * @return yVault price
      */
+    function getYVaultNormPrice(uint256 _trancheNum) public view returns (uint256){
+        uint256 tmpPrice = IYToken(trancheAddresses[_trancheNum].yTokenAddress).pricePerShare();
+        uint256 diffDec = uint256(18).sub(uint256(trancheParameters[_trancheNum].underlyingDecimals));
+        uint256 yVaultNormPrice = tmpPrice.mul(10 ** diffDec);
+        return yVaultNormPrice;
