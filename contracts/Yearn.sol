@@ -305,3 +305,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         uint256 diffDec = uint256(18).sub(uint256(trancheParameters[_trancheNum].underlyingDecimals));
         uint256 yVaultNormPrice = tmpPrice.mul(10 ** diffDec);
         return yVaultNormPrice;
+    }
+
+    /**
+     * @dev get Tranche A value in underlying tokens
+     * @param _trancheNum tranche number
