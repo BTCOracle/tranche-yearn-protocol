@@ -310,3 +310,20 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     /**
      * @dev get Tranche A value in underlying tokens
      * @param _trancheNum tranche number
+     * @return trANormValue tranche A value in underlying tokens
+     */
+    function getTrAValue(uint256 _trancheNum) public view returns (uint256 trANormValue) {
+        uint256 totASupply = IERC20Upgradeable(trancheAddresses[_trancheNum].ATrancheAddress).totalSupply();
+        uint256 diffDec = uint256(18).sub(uint256(trancheParameters[_trancheNum].underlyingDecimals));
+        trANormValue = totASupply.mul(getTrancheAExchangeRate(_trancheNum)).div(1e18).div(10 ** diffDec);
+        return trANormValue;
+    }
+
+    /**
+     * @dev get Tranche B value in underlying tokens
+     * @param _trancheNum tranche number
+     * @return tranche B value in underlying tokens
+     */
+    function getTrBValue(uint256 _trancheNum) public view returns (uint256) {
+        uint256 totProtValue = getTotalValue(_trancheNum);
+        uint256 totTrAValue = getTrAValue(_trancheNum);
