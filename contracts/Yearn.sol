@@ -327,3 +327,6 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     function getTrBValue(uint256 _trancheNum) public view returns (uint256) {
         uint256 totProtValue = getTotalValue(_trancheNum);
         uint256 totTrAValue = getTrAValue(_trancheNum);
+        if (totProtValue > totTrAValue) {
+            return totProtValue.sub(totTrAValue);
+        } else
