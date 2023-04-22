@@ -330,3 +330,6 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         if (totProtValue > totTrAValue) {
             return totProtValue.sub(totTrAValue);
         } else
+            return 0;
+    }
+
