@@ -333,3 +333,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             return 0;
     }
 
+    /**
+     * @dev get Tranche total value in underlying tokens
+     * @param _trancheNum tranche number
+     * @return tranche total value in underlying tokens
+     */
+    function getTotalValue(uint256 _trancheNum) public view returns (uint256) {
+        uint256 yPrice;
+        if (trancheAddresses[_trancheNum].isVault)
+            yPrice = getYVaultNormPrice(_trancheNum);
