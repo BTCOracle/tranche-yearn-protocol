@@ -346,3 +346,6 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             yPrice = getYTokenNormPrice(_trancheNum);
 
         uint256 totProtSupply = getTokenBalance(trancheAddresses[_trancheNum].yTokenAddress);
+
+        return totProtSupply.mul(yPrice).div(1e18);
+    }
