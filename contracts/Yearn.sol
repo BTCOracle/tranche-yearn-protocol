@@ -349,3 +349,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
         return totProtSupply.mul(yPrice).div(1e18);
     }
+
+    /**
+     * @dev get Tranche B exchange rate
+     * @param _trancheNum tranche number
+     * @return tbPrice tranche B token current price
+     */
+    function getTrancheBExchangeRate(uint256 _trancheNum) public view returns (uint256 tbPrice) {
+        // set amount of tokens to be minted via taToken price
+        // Current tbDai price = ((aDai-(aSupply X taPrice)) / bSupply)
