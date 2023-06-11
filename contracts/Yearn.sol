@@ -358,3 +358,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     function getTrancheBExchangeRate(uint256 _trancheNum) public view returns (uint256 tbPrice) {
         // set amount of tokens to be minted via taToken price
         // Current tbDai price = ((aDai-(aSupply X taPrice)) / bSupply)
+        // where: aDai = How much aDai we hold in the protocol
+        // aSupply = Total number of taDai in protocol
+        // taPrice = taDai / Dai price
+        // bSupply = Total number of tbDai in protocol
+
