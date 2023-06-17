@@ -363,3 +363,11 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         // taPrice = taDai / Dai price
         // bSupply = Total number of tbDai in protocol
 
+        uint256 totBSupply = IERC20Upgradeable(trancheAddresses[_trancheNum].BTrancheAddress).totalSupply(); // 18 decimals
+        if (totBSupply > 0) {
+            uint256 totProtValue = getTotalValue(_trancheNum); //underlying token decimals
+            uint256 totTrAValue = getTrAValue(_trancheNum); //underlying token decimals
+            uint256 totTrBValue = totProtValue.sub(totTrAValue); //underlying token decimals
+            // if normalized price in tranche A price, everything should be scaled to 1e18 
+            uint256 diffDec = uint256(18).sub(uint256(trancheParameters[_trancheNum].underlyingDecimals));
+            totTrBValue = totTrBValue.mul(10 ** diffDec);
