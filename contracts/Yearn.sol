@@ -371,3 +371,9 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             // if normalized price in tranche A price, everything should be scaled to 1e18 
             uint256 diffDec = uint256(18).sub(uint256(trancheParameters[_trancheNum].underlyingDecimals));
             totTrBValue = totTrBValue.mul(10 ** diffDec);
+            tbPrice = totTrBValue.mul(1e18).div(totBSupply);
+        } else {
+            tbPrice = uint256(1e18);
+        }
+        return tbPrice;
+    }
