@@ -377,3 +377,19 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         }
         return tbPrice;
     }
+ 
+    /**
+     * @dev set staking details for tranche A holders, with number, amount and time
+     * @param _trancheNum tranche number
+     * @param _account user's account
+     * @param _stkNum staking detail counter
+     * @param _amount amount of tranche A tokens
+     * @param _time time to be considered the deposit
+     */
+    function setTrAStakingDetails(uint256 _trancheNum, address _account, uint256 _stkNum, uint256 _amount, uint256 _time) external override onlyAdmins {
+        stakeCounterTrA[_account][_trancheNum] = _stkNum;
+        StakingDetails storage details = stakingDetailsTrancheA[_account][_trancheNum][_stkNum];
+        details.startTime = _time;
+        details.amount = _amount;
+    }
+
