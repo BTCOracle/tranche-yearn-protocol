@@ -393,3 +393,4 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         details.amount = _amount;
     }
 
+    /**
