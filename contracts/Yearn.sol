@@ -394,3 +394,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     }
 
     /**
+     * @dev when redemption occurs on tranche A, removing tranche A tokens from staking information (FIFO logic)
+     * @param _trancheNum tranche number
+     * @param _amount amount of redeemed tokens
+     */
+    function decreaseTrancheATokenFromStake(uint256 _trancheNum, uint256 _amount) internal {
+        uint256 senderCounter = stakeCounterTrA[msg.sender][_trancheNum];
+        uint256 tmpAmount = _amount;
+        for (uint i = 1; i <= senderCounter; i++) {
+            StakingDetails storage details = stakingDetailsTrancheA[msg.sender][_trancheNum][i];
