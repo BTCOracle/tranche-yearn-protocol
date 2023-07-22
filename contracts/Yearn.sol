@@ -403,3 +403,11 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         uint256 tmpAmount = _amount;
         for (uint i = 1; i <= senderCounter; i++) {
             StakingDetails storage details = stakingDetailsTrancheA[msg.sender][_trancheNum][i];
+            if (details.amount > 0) {
+                if (details.amount <= tmpAmount) {
+                    tmpAmount = tmpAmount.sub(details.amount);
+                    details.amount = 0;
+                } else {
+                    details.amount = details.amount.sub(tmpAmount);
+                    tmpAmount = 0;
+                }
