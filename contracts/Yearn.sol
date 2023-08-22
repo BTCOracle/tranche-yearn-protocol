@@ -434,3 +434,13 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @param _time time to be considered the deposit
      */
     function setTrBStakingDetails(uint256 _trancheNum, address _account, uint256 _stkNum, uint256 _amount, uint256 _time) external override onlyAdmins {
+        stakeCounterTrB[_account][_trancheNum] = _stkNum;
+        StakingDetails storage details = stakingDetailsTrancheB[_account][_trancheNum][_stkNum];
+        details.startTime = _time;
+        details.amount = _amount; 
+    }
+    
+    /**
+     * @dev when redemption occurs on tranche B, removing tranche B tokens from staking information (FIFO logic)
+     * @param _trancheNum tranche number
+     * @param _amount amount of redeemed tokens
