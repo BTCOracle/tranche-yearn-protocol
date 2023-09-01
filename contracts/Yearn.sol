@@ -453,3 +453,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             if (details.amount > 0) {
                 if (details.amount <= tmpAmount) {
                     tmpAmount = tmpAmount.sub(details.amount);
+                    details.amount = 0;
+                } else {
+                    details.amount = details.amount.sub(tmpAmount);
+                    tmpAmount = 0;
+                }
