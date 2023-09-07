@@ -462,3 +462,7 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             if (tmpAmount == 0)
                 break;
         }
+    }
+
+    function getSingleTrancheUserStakeCounterTrB(address _user, uint256 _trancheNum) external view override returns (uint256) {
+        return stakeCounterTrB[_user][_trancheNum];
