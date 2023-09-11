@@ -466,3 +466,14 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
     function getSingleTrancheUserStakeCounterTrB(address _user, uint256 _trancheNum) external view override returns (uint256) {
         return stakeCounterTrB[_user][_trancheNum];
+    }
+
+    function getSingleTrancheUserSingleStakeDetailsTrB(address _user, uint256 _trancheNum, uint256 _num) external view override returns (uint256, uint256) {
+        return (stakingDetailsTrancheB[_user][_trancheNum][_num].startTime, stakingDetailsTrancheB[_user][_trancheNum][_num].amount);
+    }
+
+    /**
+     * @dev buy Tranche A Tokens
+     * @param _trancheNum tranche number
+     * @param _amount amount of stable coins sent by buyer
+     */
