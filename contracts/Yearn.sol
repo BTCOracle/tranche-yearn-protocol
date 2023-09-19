@@ -477,3 +477,14 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @param _trancheNum tranche number
      * @param _amount amount of stable coins sent by buyer
      */
+    function buyTrancheAToken(uint256 _trancheNum, uint256 _amount) external payable nonReentrant {
+        require(trancheDepositEnabled[_trancheNum], "JYearn: tranche deposit disabled");
+        uint256 prevYTokenBalance = getTokenBalance(trancheAddresses[_trancheNum].yTokenAddress);
+        address _tokenAddr = trancheAddresses[_trancheNum].buyerCoinAddress;
+        // check approve
+        require(IERC20Upgradeable(_tokenAddr).allowance(msg.sender, address(this)) >= _amount, "JYearn: allowance failed buying tranche A");
+        SafeERC20Upgradeable.safeTransferFrom(IERC20Upgradeable(_tokenAddr), msg.sender, address(this), _amount);
+        yearnDeposit(_trancheNum, _amount);
+
+        uint256 newYTokenBalance = getTokenBalance(trancheAddresses[_trancheNum].yTokenAddress);
+        setTrancheAExchangeRate(_trancheNum);
