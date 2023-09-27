@@ -488,3 +488,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
         uint256 newYTokenBalance = getTokenBalance(trancheAddresses[_trancheNum].yTokenAddress);
         setTrancheAExchangeRate(_trancheNum);
+        uint256 taAmount;
+        if (newYTokenBalance > prevYTokenBalance) {
+            // set amount of tokens to be minted calculate taToken amount via taToken price
+            // if normalized price in tranche A price, everything should be scaled to 1e18 
+            uint256 diffDec = uint256(18).sub(uint256(trancheParameters[_trancheNum].underlyingDecimals));
