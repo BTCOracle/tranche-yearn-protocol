@@ -493,3 +493,7 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             // set amount of tokens to be minted calculate taToken amount via taToken price
             // if normalized price in tranche A price, everything should be scaled to 1e18 
             uint256 diffDec = uint256(18).sub(uint256(trancheParameters[_trancheNum].underlyingDecimals));
+            uint256 normAmount = _amount.mul(10 ** diffDec);
+            taAmount = normAmount.mul(1e18).div(trancheParameters[_trancheNum].storedTrancheAPrice);
+            //Mint trancheA tokens and send them to msg.sender and notify to incentive controller BEFORE totalSupply updates
+            IIncentivesController(incentivesControllerAddress).trancheANewEnter(msg.sender, trancheAddresses[_trancheNum].ATrancheAddress);
