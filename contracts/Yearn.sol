@@ -502,3 +502,13 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
         stakeCounterTrA[msg.sender][_trancheNum] = stakeCounterTrA[msg.sender][_trancheNum].add(1);
         StakingDetails storage details = stakingDetailsTrancheA[msg.sender][_trancheNum][stakeCounterTrA[msg.sender][_trancheNum]];
+        details.startTime = block.timestamp;
+        details.amount = taAmount;
+
+        lastActivity[msg.sender] = block.number;
+        emit TrancheATokenMinted(_trancheNum, msg.sender, _amount, taAmount);
+    }
+
+    function redeemYTokens(uint256 _trancheNum, uint256 _amount, bool isTrancheA) internal view returns (uint256) {
+        uint256 tokVal;
+        if (isTrancheA) 
