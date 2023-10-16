@@ -512,3 +512,7 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     function redeemYTokens(uint256 _trancheNum, uint256 _amount, bool isTrancheA) internal view returns (uint256) {
         uint256 tokVal;
         if (isTrancheA) 
+            tokVal = _amount.mul(trancheParameters[_trancheNum].storedTrancheAPrice).div(1e18);
+        else
+            tokVal = _amount.mul(getTrancheBExchangeRate(_trancheNum)).div(1e18);
+        // everything should be scaled to 1e18 
