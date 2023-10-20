@@ -516,3 +516,4 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         else
             tokVal = _amount.mul(getTrancheBExchangeRate(_trancheNum)).div(1e18);
         // everything should be scaled to 1e18 
+        uint256 diffDec;
