@@ -523,3 +523,4 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             normAmount = tokVal.div(10 ** diffDec);
         }
         // not sure about this, but it should be checked
+        uint256 trTotAmount;
