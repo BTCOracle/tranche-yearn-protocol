@@ -524,3 +524,7 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         }
         // not sure about this, but it should be checked
         uint256 trTotAmount;
+        if (isTrancheA)
+            trTotAmount = getTrAValue(_trancheNum);
+        else
+            trTotAmount = getTrBValue(_trancheNum);
