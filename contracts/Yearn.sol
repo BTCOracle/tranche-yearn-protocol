@@ -528,3 +528,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             trTotAmount = getTrAValue(_trancheNum);
         else
             trTotAmount = getTrBValue(_trancheNum);
+        if (normAmount > trTotAmount)
+            normAmount = trTotAmount;
+
+        uint256 tempYPrice;
+        if (trancheAddresses[_trancheNum].isVault)
