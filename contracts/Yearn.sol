@@ -533,3 +533,21 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
         uint256 tempYPrice;
         if (trancheAddresses[_trancheNum].isVault)
+            tempYPrice = getYVaultNormPrice(_trancheNum);  // price per full share
+        else
+            tempYPrice = getYTokenNormPrice(_trancheNum);
+        uint256 redeemAmount = (normAmount.mul(1e18).div(tempYPrice));
+        return redeemAmount;
+    }
+
+    function getUserAmount(address origToken, uint256 _trancheNum, uint256 _amount, bool _isTrancheA) internal returns(uint256, uint256){
+        uint256 startBal = IERC20Upgradeable(origToken).balanceOf(address(this));
+        uint256 tokensToRedeem;
+        if (_isTrancheA)
+            tokensToRedeem = redeemYTokens(_trancheNum, _amount, true);
+        else
+            tokensToRedeem = redeemYTokens(_trancheNum, _amount, false);
+        bool ret = yearnWithdraw(_trancheNum, tokensToRedeem);
+        uint256 endBal;
+        uint256 diffBal;
+        if (ret) {
