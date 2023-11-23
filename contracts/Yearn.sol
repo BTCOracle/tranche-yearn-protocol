@@ -551,3 +551,4 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         uint256 endBal;
         uint256 diffBal;
         if (ret) {
+            endBal = IERC20Upgradeable(origToken).balanceOf(address(this));
