@@ -563,3 +563,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         uint256 userAmount = diffBal.mul(redemptionPercent).div(PERCENT_DIVIDER);
         return (diffBal, userAmount);
     }
+
+    /**
+     * @dev redeem Tranche A Tokens
+     * @param _trancheNum tranche number
+     * @param _amount amount of stable coins sent by buyer
+     */
+    function redeemTrancheAToken(uint256 _trancheNum, uint256 _amount) external nonReentrant {
+        require((block.number).sub(lastActivity[msg.sender]) >= redeemTimeout, "JYearn: redeem timeout not expired on tranche A");
+        // check approve
