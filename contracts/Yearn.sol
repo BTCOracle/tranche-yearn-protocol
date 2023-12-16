@@ -572,3 +572,10 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     function redeemTrancheAToken(uint256 _trancheNum, uint256 _amount) external nonReentrant {
         require((block.number).sub(lastActivity[msg.sender]) >= redeemTimeout, "JYearn: redeem timeout not expired on tranche A");
         // check approve
+        require(IERC20Upgradeable(trancheAddresses[_trancheNum].ATrancheAddress).allowance(msg.sender, address(this)) >= _amount, 
+                "JYearn: allowance failed redeeming tranche A");
+        SafeERC20Upgradeable.safeTransferFrom(IERC20Upgradeable(trancheAddresses[_trancheNum].ATrancheAddress), msg.sender, address(this), _amount);
+
+        setTrancheAExchangeRate(_trancheNum);
+
+        address origToken = trancheAddresses[_trancheNum].buyerCoinAddress;
