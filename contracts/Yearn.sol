@@ -579,3 +579,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         setTrancheAExchangeRate(_trancheNum);
 
         address origToken = trancheAddresses[_trancheNum].buyerCoinAddress;
+
+        (uint256 diffBal, uint256 userAmount) = getUserAmount(origToken, _trancheNum, _amount, true);
+        uint256 tmpBal = diffBal;
+
+        if (diffBal > 0) {
