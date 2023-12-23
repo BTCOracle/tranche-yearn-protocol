@@ -584,3 +584,13 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         uint256 tmpBal = diffBal;
 
         if (diffBal > 0) {
+            if(userAmount <= diffBal) {
+                SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(origToken), msg.sender, userAmount);
+                tmpBal = tmpBal.sub(userAmount);
+            } else {
+                SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(origToken), msg.sender, diffBal);
+                tmpBal = 0;
+            }
+        }
+
+        uint256 feesAmount = diffBal.sub(userAmount);
