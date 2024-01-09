@@ -599,3 +599,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
                 SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(origToken), feesCollectorAddress, feesAmount);
             else
                 SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(origToken), feesCollectorAddress, tmpBal);
+        }
+       
+        // claim and transfer rewards to msg.sender. Be sure to wait for this function to be completed! 
+        bool rewClaimCompleted = IIncentivesController(incentivesControllerAddress).claimRewardsAllMarkets(msg.sender);
+
+        // decrease tokens after claiming rewards
+        if (rewClaimCompleted && _amount > 0)
+            decreaseTrancheATokenFromStake(_trancheNum, _amount);
+
