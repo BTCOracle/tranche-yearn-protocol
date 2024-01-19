@@ -608,3 +608,9 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         if (rewClaimCompleted && _amount > 0)
             decreaseTrancheATokenFromStake(_trancheNum, _amount);
 
+        IJTrancheTokens(trancheAddresses[_trancheNum].ATrancheAddress).burn(_amount);
+        lastActivity[msg.sender] = block.number;
+        emit TrancheATokenRedemption(_trancheNum, msg.sender, _amount, userAmount, feesAmount);
+    }
+
+    /**
