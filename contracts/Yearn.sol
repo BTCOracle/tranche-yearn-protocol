@@ -614,3 +614,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     }
 
     /**
+     * @dev buy Tranche B Tokens
+     * @param _trancheNum tranche number
+     * @param _amount amount of stable coins sent by buyer
+     */
+    function buyTrancheBToken(uint256 _trancheNum, uint256 _amount) external payable nonReentrant {
+        require(trancheDepositEnabled[_trancheNum], "JYearn: tranche deposit disabled");
+        // refresh value for tranche A
+        setTrancheAExchangeRate(_trancheNum);
+        // get tranche B exchange rate
