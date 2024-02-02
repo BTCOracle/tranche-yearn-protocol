@@ -623,3 +623,9 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         // refresh value for tranche A
         setTrancheAExchangeRate(_trancheNum);
         // get tranche B exchange rate
+        // if normalized price in tranche B price, everything should be scaled to 1e18 
+        uint256 diffDec = uint256(18).sub(uint256(trancheParameters[_trancheNum].underlyingDecimals));
+        uint256 normAmount = _amount.mul(10 ** diffDec);
+        uint256 tbAmount = normAmount.mul(1e18).div(getTrancheBExchangeRate(_trancheNum));
+        uint256 prevYTokenBalance = getTokenBalance(trancheAddresses[_trancheNum].yTokenAddress);
+        address _tokenAddr = trancheAddresses[_trancheNum].buyerCoinAddress;
