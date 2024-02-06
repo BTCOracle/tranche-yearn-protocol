@@ -629,3 +629,13 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         uint256 tbAmount = normAmount.mul(1e18).div(getTrancheBExchangeRate(_trancheNum));
         uint256 prevYTokenBalance = getTokenBalance(trancheAddresses[_trancheNum].yTokenAddress);
         address _tokenAddr = trancheAddresses[_trancheNum].buyerCoinAddress;
+        // check approve
+        require(IERC20Upgradeable(_tokenAddr).allowance(msg.sender, address(this)) >= _amount, "JYearn: allowance failed buying tranche B");
+        SafeERC20Upgradeable.safeTransferFrom(IERC20Upgradeable(_tokenAddr), msg.sender, address(this), _amount);
+        yearnDeposit(_trancheNum, _amount);
+
+        uint256 newYTokenBalance = getTokenBalance(trancheAddresses[_trancheNum].yTokenAddress);
+        if (newYTokenBalance > prevYTokenBalance) {
+            //Mint trancheB tokens and send them to msg.sender and notify to incentive controller BEFORE totalSupply updates
+            IIncentivesController(incentivesControllerAddress).trancheBNewEnter(msg.sender, trancheAddresses[_trancheNum].BTrancheAddress);
+            IJTrancheTokens(trancheAddresses[_trancheNum].BTrancheAddress).mint(msg.sender, tbAmount);
