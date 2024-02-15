@@ -639,3 +639,12 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
             //Mint trancheB tokens and send them to msg.sender and notify to incentive controller BEFORE totalSupply updates
             IIncentivesController(incentivesControllerAddress).trancheBNewEnter(msg.sender, trancheAddresses[_trancheNum].BTrancheAddress);
             IJTrancheTokens(trancheAddresses[_trancheNum].BTrancheAddress).mint(msg.sender, tbAmount);
+        } else 
+            tbAmount = 0;
+
+        stakeCounterTrB[msg.sender][_trancheNum] = stakeCounterTrB[msg.sender][_trancheNum].add(1);
+        StakingDetails storage details = stakingDetailsTrancheB[msg.sender][_trancheNum][stakeCounterTrB[msg.sender][_trancheNum]];
+        details.startTime = block.timestamp;
+        details.amount = tbAmount; 
+
+        lastActivity[msg.sender] = block.number;
