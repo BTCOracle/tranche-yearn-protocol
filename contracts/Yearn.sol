@@ -648,3 +648,10 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         details.amount = tbAmount; 
 
         lastActivity[msg.sender] = block.number;
+        emit TrancheBTokenMinted(_trancheNum, msg.sender, _amount, tbAmount);
+    }
+
+    /**
+     * @dev redeem Tranche B Tokens
+     * @param _trancheNum tranche number
+     * @param _amount amount of stable coins sent by buyer
