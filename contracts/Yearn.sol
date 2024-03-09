@@ -664,3 +664,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
 
         SafeERC20Upgradeable.safeTransferFrom(IERC20Upgradeable(trancheAddresses[_trancheNum].BTrancheAddress), msg.sender, address(this), _amount);
 
+        setTrancheAExchangeRate(_trancheNum);
+
+        address origToken = trancheAddresses[_trancheNum].buyerCoinAddress;
+
+        (uint256 diffBal, uint256 userAmount) = getUserAmount(origToken, _trancheNum, _amount, false);
