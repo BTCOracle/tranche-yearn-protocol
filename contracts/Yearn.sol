@@ -669,3 +669,11 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         address origToken = trancheAddresses[_trancheNum].buyerCoinAddress;
 
         (uint256 diffBal, uint256 userAmount) = getUserAmount(origToken, _trancheNum, _amount, false);
+        uint256 tmpBal = diffBal;
+
+        if (diffBal > 0) {
+            if(userAmount <= diffBal) {
+                SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(origToken), msg.sender, userAmount);
+                tmpBal = tmpBal.sub(userAmount);
+            } else {
+                SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(origToken), msg.sender, diffBal);
