@@ -700,3 +700,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
         lastActivity[msg.sender] = block.number;
         emit TrancheBTokenRedemption(_trancheNum, msg.sender, _amount, userAmount, feesAmount);
     }
+
+    /**
+     * @dev get every token balance in this contract
+     * @param _tokenContract token contract address
+     */
