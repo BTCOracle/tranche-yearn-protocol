@@ -705,3 +705,11 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @dev get every token balance in this contract
      * @param _tokenContract token contract address
      */
+    function getTokenBalance(address _tokenContract) public view returns (uint256) {
+        return IERC20Upgradeable(_tokenContract).balanceOf(address(this));
+    }
+
+    /**
+     * @dev transfer tokens in this contract to fees collector contract
+     * @param _tokenContract token contract address
+     * @param _amount token amount to be transferred 
