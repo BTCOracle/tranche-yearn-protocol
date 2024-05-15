@@ -713,3 +713,7 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
      * @dev transfer tokens in this contract to fees collector contract
      * @param _tokenContract token contract address
      * @param _amount token amount to be transferred 
+     */
+    function transferTokenToFeesCollector(address _tokenContract, uint256 _amount) external onlyAdmins {
+        SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(_tokenContract), feesCollectorAddress, _amount);
+    }
