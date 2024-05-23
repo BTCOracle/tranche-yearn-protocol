@@ -717,3 +717,13 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     function transferTokenToFeesCollector(address _tokenContract, uint256 _amount) external onlyAdmins {
         SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(_tokenContract), feesCollectorAddress, _amount);
     }
+    
+    /**
+     * @dev get token rewards amount (only if some YFI token are inside contract)
+     * @return amount of unclaimed tokens
+     */
+    function getYFIUnclaimedRewardShares() public view returns(uint256) {
+        require(yfiRewardsAddress != address(0), "JYearn: not a valid YFI reward address");
+        return IYearnRewards(yfiRewardsAddress).claimable(address(this));
+    }
+
