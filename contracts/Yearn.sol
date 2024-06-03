@@ -734,3 +734,8 @@ contract JYearn is OwnableUpgradeable, ReentrancyGuardUpgradeable, JYearnStorage
     function claimYearnRewards(uint256 _amount) external {
         require(yfiTokenAddress != address(0) && yfiRewardsAddress != address(0), "JYearn: not valid YFI addresses");
         uint256 yfiBalance = IERC20Upgradeable(yfiTokenAddress).balanceOf(address(this));
+        require(yfiBalance > 0, "JYearn: not enough YFI tokens to claim rewards");
+
+        IYearnRewards(yfiRewardsAddress).claim(_amount);
+    }
+
