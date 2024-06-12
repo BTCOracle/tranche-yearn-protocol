@@ -1,0 +1,44 @@
+{
+  "name": "tranche-yearn-protocol",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "npx truffle compile --all",
+    "test": "mocha --exit --recursive --timeout 20000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tranche-jibrel/tranche-yearn-protocol.git"
+  },
+  "author": "",
+  "license": " MIT",
+  "bugs": {
+    "url": "https://github.com/tranche-jibrel/tranche-yearn-protocol/issues"
+  },
+  "homepage": "https://github.com/tranche-jibrel/tranche-yearn-protocol#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "4.3.2",
+    "@openzeppelin/contracts-upgradeable": "4.3.2",
+    "@truffle/hdwallet-provider": "^1.5.0",
+    "dotenv": "^10.0.0",
+    "hardhat": "^2.6.5",
+    "mocha": "^8.1.2",
+    "web3": "^1.6.0"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-truffle5": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/test-helpers": "^0.5.14",
+    "@openzeppelin/truffle-upgrades": "^1.9.1",
+    "eth-gas-reporter": "^0.2.22",
+    "ganache-cli": "^6.12.2",
+    "ganache-time-traveler": "^1.0.16",
+    "hardhat-gas-reporter": "^1.0.4",
+    "solc-0.8": "npm:solc@0.8.8",
+    "solidity-coverage": "^0.7.17",
+    "solidity-docgen": "^0.5.16",
+    "truffle-contract-size": "^2.0.1",
+    "truffle-plugin-verify": "^0.5.20"
+  }
+}
